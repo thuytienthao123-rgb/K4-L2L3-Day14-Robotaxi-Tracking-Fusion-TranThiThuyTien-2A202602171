@@ -2,34 +2,36 @@ PHIẾU CÁ NHÂN — DAY 14
 Điền file này, chạy QC vào submission/qc-j01 và submission/qc-practice, commit rồi nộp link repo.
 Không dán ảnh, toạ độ điểm hay nội dung file export vào đây.
 
-Họ tên / mã học viên:
-Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01:
-Phiên bản CVAT / overlay đã bật (có/không):
+Họ tên / mã học viên: Trần Thị Thủy Tiên / 2A202602171
+Phạm vi gán nhãn: Gán nhãn 1 phương tiện (Track lõi J01-b theo quy định bài Lab 14, không gán nhãn toàn bộ phương tiện)
+Object J01 (a/b/c/d theo docs/cases.md) / track ID trong task J01: J01-b (chữ số cuối 1, frame neo 38, ROI [1613, 863, 1902, 1022]) / Track ID: 0
+Phiên bản CVAT / overlay đã bật (có/không): v2.74.1 / có
 
 J01 — TRACK LÕI
-Frame fit và lý do:
-L / W / H (m):
-Keyframe quan trọng và lý do:
-Đã bấm F qua đủ frame 0–65 (có/không):
-Đoạn thưa / che khuất / dễ nhầm identity:
+Frame fit và lý do: Frame 38 (frame neo, xe gần ego nhất, cụm điểm LiDAR dày và rõ đường biên 4 cạnh, ít nhiễu)
+L / W / H (m): 4.18 / 1.74 / 1.64
+Keyframe quan trọng và lý do: Frame 0 (bắt đầu track), Frame 38 (frame fit chuẩn geometry), các frame đổi hướng (chỉnh heading), và Frame 65 (kết thúc sequence)
+Đã bấm F qua đủ frame 0–65 (có/không): có
+Đoạn thưa / che khuất / dễ nhầm identity: Các frame cuối (54–65) xe ở xa ego (khoảng cách lên tới 74.2 m) điểm LiDAR thưa hơn, cần giữ nguyên kích thước vật thể cứng 4.18 / 1.74 / 1.64 m đã xác lập
 
 SELF-QC (từ qc_tracks.csv / qc_flags.csv)
-Lần QC đầu — cờ của track J01 (loại, frame):
-Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do:
-Đã sửa gì sau QC đầu; QC cuối còn cờ nào:
-Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao:
+Lần QC đầu — cờ của track J01 (loại, frame): dimension_drift tại frame 55 (L drift 8.7% từ 4.18 lên 4.58 m; H drift 5.7% từ 1.64 lên 1.74 m)
+Quyết định cho từng cờ (sửa / giữ vì hợp lệ / chưa đủ evidence) và lý do: Sửa: Quay lại CVAT điều chỉnh lại các frame 54–65 về kích thước tham chiếu chuẩn 4.18 m; cờ H tại frame 65 giải trình giữ vì frame cuối cùng xe ở xa nhất (74.2 m) điểm LiDAR nóc xe cực thưa
+Đã sửa gì sau QC đầu; QC cuối còn cờ nào: Đã sửa chiều dài L (L_drift giảm từ 8.7% xuống còn 4.57%, đạt chuẩn dưới ngưỡng 5%), W_drift = 0.0% tuyệt đối, yaw_step_max chỉ 5.16°; QC cuối chỉ còn 1 cờ nhẹ H_drift (5.7%) ở frame 65 cuối cùng
+Nhận xét của bạn cùng cặp và bạn đồng ý/không đồng ý vì sao: Bạn Đào Ngọc Hiếu nhận xét track bám xe rất tốt, góc quay heading mượt, đồng ý với cách xử lý rework đưa L_drift về dưới ngưỡng 5% và giải trình frame cuối xe ở xa thưa điểm
 
 CAMERA–LIDAR (overlay trên image_1)
-Ca bình thường (frame / quan sát):
-Ca khó (frame / quan sát 2D / quan sát 3D):
-Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence):
-Hành động (sửa / giữ / báo Lab Coach) và lý do:
+Ca bình thường (frame / quan sát): Frame 38 - Box 3D chiếu lên ảnh camera trước (image_1) ôm khít thân xe, chiều đầu xe khớp hướng di chuyển
+Ca khó (frame / quan sát 2D / quan sát 3D): Frame ở xa - Trên 2D xe bị khuất một phần góc nhìn, trên 3D điểm thưa; box 3D chiếu lên 2D vẫn bao đúng vị trí xe
+Giả thuyết nguyên nhân (annotation / FOV / occlusion / sparse / nghi calibration / chưa đủ evidence): sparse & occlusion
+Hành động (sửa / giữ / báo Lab Coach) và lý do: Giữ nguyên cuboid 3D theo kích thước chuẩn đã fit, không kéo méo hay co box theo điểm thưa
 
 CASE NGẮN (task practice)
-Case → track ID (ví dụ B01 → 3):
-Case đã xong:
-Case đang dở / chỗ kẹt:
-fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không):
+Case → track ID (ví dụ B01 → 3): B01 → Track 0
+Case đã xong: B01 (frame 16–21)
+Case đang dở / chỗ kẹt: không có
+fragmentation_suspect ở đầu/cuối case đã kiểm là do cách cắt case (có/không): có
 
 THỜI GIAN
-J01 / case ngắn / QC và fusion:
+J01 / case ngắn / QC và fusion: 80 phút / 25 phút / 20 phút
+
